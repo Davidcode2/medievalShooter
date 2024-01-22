@@ -6,6 +6,8 @@ TagManager:
   tags:
   - LeftHand
   - RightHand
+  - Bullet
+  - Weapon
   layers:
   - Default
   - TransparentFX
