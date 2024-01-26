@@ -10,6 +10,7 @@ public class TargetDummy : MonoBehaviour
     [SerializeField] private Animator dummyAnimator;
 	[SerializeField] private float padding;
 	[SerializeField] private int scoreOnHit;
+	[SerializeField] private AudioClip hitSoundEffect;
 
 	private void OnCollisionEnter(Collision collision)
     {
@@ -23,7 +24,13 @@ public class TargetDummy : MonoBehaviour
 			ScoreManager.Instance.scorePrefabText.gameObject.SetActive(true);
 			ScoreManager.Instance.IncreaseScore(scoreOnHit);
             StartCoroutine(DeactivatePointNumber());
-		}   
+			AudioSource.PlayClipAtPoint(hitSoundEffect, this.transform.position);
+
+			if (collision.gameObject != null)
+			{
+				Destroy(collision.gameObject);
+			}
+		}
     }
 
 	private void OnEnable()
