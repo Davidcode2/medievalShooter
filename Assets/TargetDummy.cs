@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TargetDummy : MonoBehaviour
@@ -11,6 +12,7 @@ public class TargetDummy : MonoBehaviour
 	[SerializeField] private float padding;
 	[SerializeField] private int scoreOnHit;
 	[SerializeField] private AudioClip hitSoundEffect;
+	private int hitCount = 0;
 
 	private void OnCollisionEnter(Collision collision)
     {
@@ -20,19 +22,32 @@ public class TargetDummy : MonoBehaviour
 			{
 				dummyAnimator.SetTrigger("Death");
 			}
-			ScoreManager.Instance.scorePrefabText.gameObject.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + padding, this.transform.position.z);
-			ScoreManager.Instance.scorePrefabText.gameObject.SetActive(true);
-			ScoreManager.Instance.IncreaseScore(scoreOnHit);
-            StartCoroutine(DeactivatePointNumber());
+			CalculateRicochetBonus(collision);
 			AudioSource.PlayClipAtPoint(hitSoundEffect, this.transform.position);
+			DisplayScoreText();
 
-			if (collision.gameObject != null)
+			hitCount++;
+			if (hitCount == 4)
 			{
-				Destroy(collision.gameObject);
+				Destroy(this.gameObject);
 			}
 		}
     }
 
+
+	private void CalculateRicochetBonus(Collision collision)
+	{
+		Ricochet bullet = collision.gameObject.GetComponent<Ricochet>();
+		this.scoreOnHit = this.scoreOnHit * (bullet.collisionCount - 1);
+	}
+
+	private void DisplayScoreText()
+	{
+        ScoreManager.Instance.scorePrefabText.gameObject.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + padding, this.transform.position.z);
+        ScoreManager.Instance.scorePrefabText.gameObject.SetActive(true);
+        ScoreManager.Instance.IncreaseScore(scoreOnHit);
+        StartCoroutine(DeactivatePointNumber());
+	}
 	private void OnEnable()
 	{
 		StopCoroutine(DeactivatePointNumber());
