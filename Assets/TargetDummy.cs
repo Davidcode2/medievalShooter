@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TargetDummy : MonoBehaviour
@@ -7,15 +8,44 @@ public class TargetDummy : MonoBehaviour
     // Start is called before the first frame update
 
     [SerializeField] private Animator dummyAnimator;
-    private void OnCollisionEnter(Collision collision)
+	[SerializeField] private float padding;
+	[SerializeField] private int scoreOnHit;
+	[SerializeField] private AudioClip hitSoundEffect;
+
+	private void OnCollisionEnter(Collision collision)
     {
-     if (collision.gameObject.CompareTag("Weapon") )
+        if (collision.gameObject.CompareTag("Bullet") )
         {
-            dummyAnimator.SetTrigger("Death");
-        }   
+			if (dummyAnimator != null)
+			{
+				dummyAnimator.SetTrigger("Death");
+			}
+			ScoreManager.Instance.scorePrefabText.gameObject.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + padding, this.transform.position.z);
+			ScoreManager.Instance.scorePrefabText.gameObject.SetActive(true);
+			ScoreManager.Instance.IncreaseScore(scoreOnHit);
+            StartCoroutine(DeactivatePointNumber());
+			AudioSource.PlayClipAtPoint(hitSoundEffect, this.transform.position);
+
+			if (collision.gameObject != null)
+			{
+				Destroy(collision.gameObject);
+			}
+		}
     }
-     public void ActivateDummy()
+
+	private void OnEnable()
+	{
+		StopCoroutine(DeactivatePointNumber());
+	}
+
+	public void ActivateDummy()
     {
         dummyAnimator.SetTrigger("Activate");
     }
+
+    IEnumerator DeactivatePointNumber()
+	{
+		yield return new WaitForSeconds(1f);
+		ScoreManager.Instance.scorePrefabText.gameObject.SetActive(false);
+	}
 }
