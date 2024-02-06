@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 5368467037891121902}
   - component: {fileID: 6884255503677390346}
   - component: {fileID: -270383734962984641}
-  - component: {fileID: 5438695912736259056}
+  - component: {fileID: 2289873030139594538}
   m_Layer: 0
-  m_Name: MachineGunBullet
+  m_Name: PowerBullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f122dfc08b8f3d44f8882ae86a36cb4c, type: 2}
+  - {fileID: 2100000, guid: a93edb7cb3f83424981c109657eb84fc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -134,7 +134,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &5438695912736259056
+--- !u!114 &2289873030139594538
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -38,7 +38,7 @@ public class TargetDummy : MonoBehaviour
 	private void CalculateRicochetBonus(Collision collision)
 	{
 		Ricochet bullet = collision.gameObject.GetComponent<Ricochet>();
-		this.scoreOnHit = this.scoreOnHit * (bullet.collisionCount - 1);
+		this.scoreOnHit = this.scoreOnHit * (bullet.collisionCount);
 	}
 
 	private void DisplayScoreText()
