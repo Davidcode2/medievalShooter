@@ -840,11 +840,11 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: VRMedievalShooter
   metroPackageVersion: 1.0.0.0
-  metroCertificatePath: 
+  metroCertificatePath: Assets/WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
+  metroCertificateSubject: DefaultCompany
+  metroCertificateIssuer: DefaultCompany
+  metroCertificateNotAfter: 80076aebe578db01
   metroApplicationDescription: VR_Medieval_Shooter
   wsaImages: {}
   metroTileShortName: VR_Medieval_Shooter
